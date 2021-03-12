@@ -22,13 +22,46 @@ def coordinate_request(string):
         else:
             print('Введите число от 1 до 3')
             continue
+
+def check_rows(field):
+    """
+        Проверяет ряды массива на наличие трех идущих подряд 'X' или '0'
+        Принимает массив
+        Возвращает bool
+    """
+    pass
+
+def check_columns(field):
+    """
+        Проверяет столбцы массива на наличие трех идущих подряд 'X' или '0'
+        Принимает массив
+        Возвращает bool
+    """
+    pass
+
+def check_diagonals(field):
+    """
+        Проверяет диагонали массива на наличие трех идущих подряд 'X' или '0'
+        Принимает массив
+        Возвращает bool
+    """    
+    pass
+
 def is_win(field):
     """
         Проверяет поле на наличие трех идущих подряд 'X' или '0'
         Получает массив поля
         Возвращает bool
     """
-    pass
+    if check_rows(field):
+        return True
+    elif check_columns(field):
+        return True
+    elif check_diagonals(field):
+        return True
+    else:
+        return False
+
 def computer(field):
     """
         Имитирует ход компьютера, ставит '0' на свободное место '-'
