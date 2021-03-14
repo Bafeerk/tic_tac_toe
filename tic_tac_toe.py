@@ -25,8 +25,8 @@ def coordinate_request(string):
 
 def check_rows(field, symbol):
     """
-        Проверяет ряды массива на наличие трех идущих подряд 'X' или '0'
-        Принимает массив и строку ('X' или 'Y')
+        Проверяет ряды массива на наличие трех идущих подряд 'X' или 'O'
+        Принимает массив и строку ('X' или 'O')
         Возвращает bool
     """
     if field[1][1] + field[1][2] + field[1][3] == symbol * 3:
@@ -41,8 +41,8 @@ def check_rows(field, symbol):
 
 def check_columns(field, symbol):
     """
-        Проверяет столбцы массива на наличие трех идущих подряд 'X' или '0'
-        Принимает массив и строку ('X' или 'Y')
+        Проверяет столбцы массива на наличие трех идущих подряд 'X' или 'O'
+        Принимает массив и строку ('X' или 'O')
         Возвращает bool
     """
     if field[1][1] + field[2][1] + field[3][1] == symbol * 3:
@@ -57,8 +57,8 @@ def check_columns(field, symbol):
 
 def check_diagonals(field, symbol):
     """
-        Проверяет диагонали массива на наличие трех идущих подряд 'X' или '0'
-        Принимает массив и строку ('X' или 'Y')
+        Проверяет диагонали массива на наличие трех идущих подряд 'X' или 'O'
+        Принимает массив и строку ('X' или 'O')
         Возвращает bool
     """    
     if field[1][1] + field[2][2] + field[3][3] == symbol * 3:
@@ -70,8 +70,8 @@ def check_diagonals(field, symbol):
 
 def is_win(field, symbol):
     """
-        Проверяет поле на наличие трех идущих подряд 'X' или '0'
-        Получает массив поля, и строку ('X' или 'Y')
+        Проверяет поле на наличие трех идущих подряд 'X' или 'O'
+        Получает массив поля, и строку ('X' или 'O')
         Возвращает bool
     """
     if check_rows(field, symbol):
@@ -83,13 +83,46 @@ def is_win(field, symbol):
     else:
         return False
 
+def computer_cheks_rows(field):
+    """
+        Проверяет строки на наличие в низ двух 'XX' и '-'
+        Принимает массив
+        Возвращает bool
+    """
+    i = 1
+    while i < 4:
+        if field[i][1] + field[i][2] + field[i][3] == '-XX':
+            print('computer checks, 1')
+            field[i][1] = 'O'
+            return True
+        elif field[i][1] + field[i][2] + field[i][3] == 'X-X':
+            field[i][2] = 'O'
+            return True
+        elif field[i][1] + field[i][2] + field[i][3] == 'XX-':
+            field[i][3] = 'O'
+            return True
+        i += 1
+    return False
+
 def computer(field):
     """
-        Имитирует ход компьютера, ставит '0' на свободное место '-'
+        Имитирует ход компьютера, ставит 'O' на свободное место '-'
         Принимает массив
         Ничего не возвращает
     """
-    pass
+    if computer_cheks_rows(field): 
+        computer_cheks_rows(field)
+    else:        
+        if  column + 1 < 3:
+            if field[row][column + 1] == '-':
+                field[row][column + 1] = 'O'
+            else:
+                if row + 1 < 3:    
+                    field[row + 1][column] = 'O'
+                else:
+                    print('Я не знаю куда ходить')
+        else:
+            field[row + 1][column] = 'O'
     
 field = [
          [0, '1', '2', '3'],
@@ -120,7 +153,7 @@ while True:
 
     computer(field)
 
-    if is_win(field, 'Y'):
+    if is_win(field, 'O'):
         draw_field(field)
         print('Поздравляем, вы проиграли')
         break
