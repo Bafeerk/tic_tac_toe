@@ -127,6 +127,49 @@ def computer_cheks_columns(field):
         i += 1
     return False
 
+def computer_cheks_diagonals(field):
+    """
+        Проверяет диагонали на наличие в низ двух 'XX' и '-'
+        Принимает массив
+        Возвращает bool
+    """
+    print('Hi, I checks disgonals')
+    if field[1][1] + field[2][2] + field[3][3] == '-XX':
+        field[1][1] = 'O'
+        return True
+    elif field[1][1] + field[2][2] + field[3][3] == 'X-X':
+        field[2][2] = 'O'
+        return True
+    elif field[1][1] + field[2][2] + field[3][3] == 'XX-':
+        field[3][3] = 'O'
+        return True
+    elif field[3][1] + field[2][2] + field[1][3] == '-XX':
+        field[3][1] = 'O'
+        return True
+    elif field[3][1] + field[2][2] + field[1][3] == 'X-X':
+        field[2][2] = 'O'
+        return True
+    elif field[3][1] + field[2][2] + field[1][3] == 'XX-':
+        field[1][3] = 'O'
+        return True
+    else:
+        return False
+
+def find_free_cells(field):
+    """
+        Ищет пустые ячейки и вставляет туда 'O'
+        Принимает массив
+        Ничего не возвращает
+    """
+    i = 1
+    while i < 4:
+        j = 1
+        while j < 4:
+            if field[i][j] == '-':
+                field[i][j] = 'O'
+        j += 1
+    i += 1
+
 def computer(field):
     """
         Имитирует ход компьютера, ставит 'O' на свободное место '-'
@@ -134,21 +177,23 @@ def computer(field):
         Ничего не возвращает
     """
     if computer_cheks_rows(field): 
-##        computer_cheks_rows(field)
         pass
     elif computer_cheks_columns(field):
         pass
+    elif computer_cheks_diagonals(field):
+        pass
     else:        
-        if  column + 1 < 3:
-            if field[row][column + 1] == '-':
-                field[row][column + 1] = 'O'
-            else:
-                if row + 1 < 3:    
-                    field[row + 1][column] = 'O'
-                else:
-                    print('Я не знаю куда ходить')
-        else:
+        if column != 1 and field[row][column - 1] == '-':
+            field[row][column - 1] = 'O'
+        elif column != 3 and field[row][column + 1] == '-':
+            field[row][column + 1] = 'O'
+        elif row != 3 and field[row + 1][column] == '-':
             field[row + 1][column] = 'O'
+        elif row != 1 and field[row - 1][column] == '-':
+            field[row - 1][column] = 'O'
+        else:
+            find_free_cells(field)
+        
     
 field = [
          [0, '1', '2', '3'],
