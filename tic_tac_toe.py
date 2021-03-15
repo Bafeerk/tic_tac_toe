@@ -89,6 +89,7 @@ def computer_cheks_rows(field):
         Принимает массив
         Возвращает bool
     """
+    print('I checks rows')
     i = 1
     while i < 4:
         if field[i][1] + field[i][2] + field[i][3] == '-XX':
@@ -104,6 +105,28 @@ def computer_cheks_rows(field):
         i += 1
     return False
 
+def computer_cheks_columns(field):
+    """
+        Проверяет столбцы на наличие в низ двух 'XX' и '-'
+        Принимает массив
+        Возвращает bool
+    """
+    print('Hi, I checks columns')
+    i = 1
+    while i < 4:
+        if field[1][i] + field[2][i] + field[3][i] == '-XX':
+            print('computer checks, 1')
+            field[1][i] = 'O'
+            return True
+        elif field[1][i] + field[2][i] + field[3][i] == 'X-X':
+            field[2][i] = 'O'
+            return True
+        elif field[1][i] + field[2][i] + field[3][i] == 'XX-':
+            field[3][i] = 'O'
+            return True
+        i += 1
+    return False
+
 def computer(field):
     """
         Имитирует ход компьютера, ставит 'O' на свободное место '-'
@@ -111,7 +134,10 @@ def computer(field):
         Ничего не возвращает
     """
     if computer_cheks_rows(field): 
-        computer_cheks_rows(field)
+##        computer_cheks_rows(field)
+        pass
+    elif computer_cheks_columns(field):
+        pass
     else:        
         if  column + 1 < 3:
             if field[row][column + 1] == '-':
