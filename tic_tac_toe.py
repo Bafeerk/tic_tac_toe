@@ -83,7 +83,7 @@ def is_win(field, symbol):
     else:
         return False
 
-def computer_cheks_rows(field):
+def computer_cheks_rows(field, symbol):
     """
         Проверяет строки на наличие в низ двух 'XX' и '-'
         Принимает массив
@@ -92,20 +92,20 @@ def computer_cheks_rows(field):
     print('I checks rows')
     i = 1
     while i < 4:
-        if field[i][1] + field[i][2] + field[i][3] == '-XX':
+        if field[i][1] + field[i][2] + field[i][3] == '-' + symbol * 2:
             print('computer checks, 1')
             field[i][1] = 'O'
             return True
-        elif field[i][1] + field[i][2] + field[i][3] == 'X-X':
+        elif field[i][1] + field[i][2] + field[i][3] == symbol + '-' + symbol:
             field[i][2] = 'O'
             return True
-        elif field[i][1] + field[i][2] + field[i][3] == 'XX-':
+        elif field[i][1] + field[i][2] + field[i][3] == symbol * 2 + '-':
             field[i][3] = 'O'
             return True
         i += 1
     return False
 
-def computer_cheks_columns(field):
+def computer_cheks_columns(field, symbol):
     """
         Проверяет столбцы на наличие в низ двух 'XX' и '-'
         Принимает массив
@@ -114,42 +114,42 @@ def computer_cheks_columns(field):
     print('Hi, I checks columns')
     i = 1
     while i < 4:
-        if field[1][i] + field[2][i] + field[3][i] == '-XX':
+        if field[1][i] + field[2][i] + field[3][i] == '-' + symbol * 2:
             print('computer checks, 1')
             field[1][i] = 'O'
             return True
-        elif field[1][i] + field[2][i] + field[3][i] == 'X-X':
+        elif field[1][i] + field[2][i] + field[3][i] == symbol + '-' + symbol:
             field[2][i] = 'O'
             return True
-        elif field[1][i] + field[2][i] + field[3][i] == 'XX-':
+        elif field[1][i] + field[2][i] + field[3][i] == symbol * 2 + '-':
             field[3][i] = 'O'
             return True
         i += 1
     return False
 
-def computer_cheks_diagonals(field):
+def computer_cheks_diagonals(field, symbol):
     """
         Проверяет диагонали на наличие в низ двух 'XX' и '-'
         Принимает массив
         Возвращает bool
     """
     print('Hi, I checks disgonals')
-    if field[1][1] + field[2][2] + field[3][3] == '-XX':
+    if field[1][1] + field[2][2] + field[3][3] == '-' + symbol * 2:
         field[1][1] = 'O'
         return True
-    elif field[1][1] + field[2][2] + field[3][3] == 'X-X':
+    elif field[1][1] + field[2][2] + field[3][3] == symbol + '-' + symbol:
         field[2][2] = 'O'
         return True
-    elif field[1][1] + field[2][2] + field[3][3] == 'XX-':
+    elif field[1][1] + field[2][2] + field[3][3] == symbol * 2 + '-':
         field[3][3] = 'O'
         return True
-    elif field[3][1] + field[2][2] + field[1][3] == '-XX':
+    elif field[3][1] + field[2][2] + field[1][3] == '-' + symbol * 2:
         field[3][1] = 'O'
         return True
-    elif field[3][1] + field[2][2] + field[1][3] == 'X-X':
+    elif field[3][1] + field[2][2] + field[1][3] == symbol + '-' + symbol:
         field[2][2] = 'O'
         return True
-    elif field[3][1] + field[2][2] + field[1][3] == 'XX-':
+    elif field[3][1] + field[2][2] + field[1][3] == symbol * 2 + '-':
         field[1][3] = 'O'
         return True
     else:
@@ -164,6 +164,28 @@ def is_center_free(field):
     if field[2][2] == '-':
         return True
     else: return False
+
+def computer_find_rows(field):
+    """
+        Проверяет строки на наличие в низ двух 'OO' и '-'
+        Принимает массив
+        Возвращает bool
+    """
+    print('I checks rows')
+    i = 1
+    while i < 4:
+        if field[i][1] + field[i][2] + field[i][3] == '-OO':
+            print('computer checks, 1')
+            field[i][1] = 'O'
+            return True
+        elif field[i][1] + field[i][2] + field[i][3] == 'O-O':
+            field[i][2] = 'O'
+            return True
+        elif field[i][1] + field[i][2] + field[i][3] == 'OO-':
+            field[i][3] = 'O'
+            return True
+        i += 1
+    return False
 
 def find_free_cells(field):
     """
@@ -188,11 +210,17 @@ def computer(field):
     """
     if is_center_free(field):
         field[2][2] = 'O'
-    elif computer_cheks_rows(field): 
+    elif computer_cheks_rows(field, 'O'):
         pass
-    elif computer_cheks_columns(field):
+    elif computer_cheks_columns(field, 'O'):
         pass
-    elif computer_cheks_diagonals(field):
+    elif computer_cheks_diagonals(field, 'O'):
+        pass
+    elif computer_cheks_rows(field, 'X'): 
+        pass
+    elif computer_cheks_columns(field, 'X'):
+        pass
+    elif computer_cheks_diagonals(field, 'X'):
         pass
     else:        
         if column != 1 and field[row][column - 1] == '-':
