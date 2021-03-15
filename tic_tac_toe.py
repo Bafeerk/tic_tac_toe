@@ -155,6 +155,16 @@ def computer_cheks_diagonals(field):
     else:
         return False
 
+def is_center_free(field):
+    """
+        Проверяет свободен ли центр игрового поля
+        Принимает массив
+        Возвращает bool
+    """
+    if field[2][2] == '-':
+        return True
+    else: return False
+
 def find_free_cells(field):
     """
         Ищет пустые ячейки и вставляет туда 'O'
@@ -176,7 +186,9 @@ def computer(field):
         Принимает массив
         Ничего не возвращает
     """
-    if computer_cheks_rows(field): 
+    if is_center_free(field):
+        field[2][2] = 'O'
+    elif computer_cheks_rows(field): 
         pass
     elif computer_cheks_columns(field):
         pass
