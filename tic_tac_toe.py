@@ -167,8 +167,8 @@ def find_free_cells(field):
         while j < 4:
             if field[i][j] == '-':
                 field[i][j] = 'O'
-        j += 1
-    i += 1
+            j += 1
+        i += 1
 
 def computer(field):
     """
@@ -193,7 +193,22 @@ def computer(field):
             field[row - 1][column] = 'O'
         else:
             find_free_cells(field)
-        
+
+def nobody_win(field):
+    """
+        Проверяет массив на отсутствие в нем '-'
+        Принимает массив
+        Возвращает bool
+    """
+    i = 1
+    while i < 4:
+        j = 1
+        while j < 4:
+            if field[i][j] == '-':
+                return True
+            j += 1
+        i += 1
+    return False
     
 field = [
          [0, '1', '2', '3'],
@@ -203,6 +218,8 @@ field = [
         ]
 
 draw_field(field)
+
+count = 1
 
 while True:
     row = coordinate_request('Ряд: ')
@@ -227,6 +244,10 @@ while True:
     if is_win(field, 'O'):
         draw_field(field)
         print('Поздравляем, вы проиграли')
+        break
+
+    if nobody_win(field) == False:
+        print('Ничья')
         break
     
     draw_field(field)
