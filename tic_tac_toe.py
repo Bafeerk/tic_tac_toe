@@ -85,8 +85,8 @@ def is_win(field, symbol):
 
 def computer_cheks_rows(field, symbol):
     """
-        Проверяет строки на наличие в низ двух 'XX' и '-'
-        Принимает массив
+        Проверяет строки на наличие в низ двух 'XX' или 'O' и '-'
+        Принимает массив и строку ('X', 'O')
         Возвращает bool
     """
     print('I checks rows')
@@ -107,8 +107,8 @@ def computer_cheks_rows(field, symbol):
 
 def computer_cheks_columns(field, symbol):
     """
-        Проверяет столбцы на наличие в низ двух 'XX' и '-'
-        Принимает массив
+        Проверяет столбцы на наличие в низ двух 'XX' или 'O' и '-'
+        Принимает массив и строку ('X', 'O')
         Возвращает bool
     """
     print('Hi, I checks columns')
@@ -129,8 +129,8 @@ def computer_cheks_columns(field, symbol):
 
 def computer_cheks_diagonals(field, symbol):
     """
-        Проверяет диагонали на наличие в низ двух 'XX' и '-'
-        Принимает массив
+        Проверяет диагонали на наличие в низ двух 'XX' или 'O' и '-'
+        Принимает массив и строку ('X', 'O')
         Возвращает bool
     """
     print('Hi, I checks disgonals')
@@ -164,28 +164,6 @@ def is_center_free(field):
     if field[2][2] == '-':
         return True
     else: return False
-
-def computer_find_rows(field):
-    """
-        Проверяет строки на наличие в низ двух 'OO' и '-'
-        Принимает массив
-        Возвращает bool
-    """
-    print('I checks rows')
-    i = 1
-    while i < 4:
-        if field[i][1] + field[i][2] + field[i][3] == '-OO':
-            print('computer checks, 1')
-            field[i][1] = 'O'
-            return True
-        elif field[i][1] + field[i][2] + field[i][3] == 'O-O':
-            field[i][2] = 'O'
-            return True
-        elif field[i][1] + field[i][2] + field[i][3] == 'OO-':
-            field[i][3] = 'O'
-            return True
-        i += 1
-    return False
 
 def find_free_cells(field):
     """
